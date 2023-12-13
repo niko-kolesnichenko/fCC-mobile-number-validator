@@ -18,25 +18,36 @@ Return true if the string is a valid US phone number; otherwise return false.
 
 // Final solution
 function telephoneCheck(str) {
-  return true;
+  let telephonePattern = /^1?\s*(\d{3}|\(\d{3}\))\s*-*\d{3}\s*-*\d{4}$/;
+  return telephonePattern.test(str);
 }
 
 console.log(telephoneCheck("555-555-5555"));
 
 // Thinking history
 
-function telephoneCheck(str) {
-  return true;
+/*
+important notes on this regex during the testing:
+- adding ^ and $ to establish start&end of the pattern
+- using check-for-mixed-grouping approach for area codes 555 or (555)
+- using ? for the first optional country code
+*/
+
+function testTelephoneCheck(str) {
+  let telephonePattern = /^1?\s*(\d{3}|\(\d{3}\))\s*-*\d{3}\s*-*\d{4}$/;
+  return telephonePattern.test(str);
 }
 
-console.log(telephoneCheck("555-555-5555")); //true
-console.log(telephoneCheck("1 (555) 555-5555")); //true
-console.log(telephoneCheck("5555555555")); //true
-console.log(telephoneCheck("1 555)555-5555")); //false
-console.log(telephoneCheck("1 456 789 4444")); //true
-console.log(telephoneCheck("123**&!!asdf#")); //false
-console.log(telephoneCheck("(6054756961)")); //false
-console.log(telephoneCheck("2 (757) 622-7382")); //false
-console.log(telephoneCheck("0 (757) 622-7382")); //false
-console.log(telephoneCheck("-1 (757) 622-7382")); //false
-console.log(telephoneCheck("(555)5(55?)-5555")); //false
+console.log(testTelephoneCheck("555-555-5555")); //true
+console.log(testTelephoneCheck("1 (555) 555-5555")); //true
+console.log(testTelephoneCheck("2 (555) 555-5555")); //false
+console.log(testTelephoneCheck("(255) 5555-5555")); //false
+console.log(testTelephoneCheck("5555555555")); //true
+console.log(testTelephoneCheck("1 555)555-5555")); //false
+console.log(testTelephoneCheck("1 456 789 4444")); //true
+console.log(testTelephoneCheck("123**&!!asdf#")); //false
+console.log(testTelephoneCheck("(6054756961)")); //false
+console.log(testTelephoneCheck("2 (757) 622-7382")); //false
+console.log(testTelephoneCheck("0 (757) 622-7382")); //false
+console.log(testTelephoneCheck("-1 (757) 622-7382")); //false
+console.log(testTelephoneCheck("(555)5(55?)-5555")); //false
